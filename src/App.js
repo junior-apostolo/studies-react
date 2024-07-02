@@ -1,30 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import { Component } from 'react';
 
 function App() {
   const [count, setCount] = useState(0);
-  const [reverse, setReverse] = useState(false);
-  const reverseClass = reverse ? 'reverse' : '';
 
-  const handleClick = () => {
-    setReverse(!reverse);
+  // Executa somente quando a dependencia mudar
+  useEffect(() => {
+    console.log('componentDidUpdate: somente quando a dependencia mudar');
+  }, [count]);
 
-    setCount(count + 1);
-  };
+  // Executa apenas uma vez
+  // useEffect(() => {
+  //   console.log('componentDidUpdate: Executa apenas uma vez');
+  // }, []);
+
+  // Executa sempre que o componente App atualiza
+  // useEffect(() => {
+  //   console.log('componentDidUpdate: sempre que o componente App atualiza');
+  // });
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className={`App-logo ${reverseClass}`} alt="logo" />
-
-        <h1>contador: {count}</h1>
-
-        <button type="button" onClick={handleClick}>
-          Reverse
-        </button>
-      </header>
+      <h1>Contador: {count}</h1>
+      <button onClick={() => setCount(count + 1)}>+</button>
     </div>
   );
 }
